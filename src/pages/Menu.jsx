@@ -3,7 +3,7 @@ import { CartContext } from "../context/CartContext";
 import { collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
 import BurgMap from "../components/BurgMap";
-import CartMap from "../components/cartMap";
+import CartMap from "../components/CartMap";
 
 export default function Menu(){
 

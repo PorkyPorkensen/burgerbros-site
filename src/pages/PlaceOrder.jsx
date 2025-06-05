@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import CartMap from "../components/cartMap";
+import CartMap from "../components/CartMap";
 
 export default function PlaceOrder(){
     const { cart, addToCart, clearCart } = useContext(CartContext);
