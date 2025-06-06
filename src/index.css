@@ -271,12 +271,14 @@ input[type="time"] {
 /* === Food Display === */
 .foodDiv {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));;
+  grid-template-columns: repeat( minmax(250px, 1fr));;
   gap: 1.5rem;
   padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
 }
+
+
 
 .sm {
   font-size: 0.3em;
@@ -289,6 +291,7 @@ input[type="time"] {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   max-width: 300px;
+  margin: 0 auto;
 }
 .itemDiv img, .foodDiv img, .foodPic {
   width: 100%;

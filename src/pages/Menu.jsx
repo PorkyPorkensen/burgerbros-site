@@ -39,7 +39,7 @@ function removeNClose() {
   }, [cart]);
 
     return (
-        <div>
+        <div className="main">
             <h2 className="subHead">Apps & Starters</h2>
          <div className="foodDiv">
         {others.map((other) => (
