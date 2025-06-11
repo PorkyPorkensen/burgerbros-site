@@ -4,6 +4,9 @@ import { collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
 import BurgMap from "../components/BurgMap";
 import CartMap from "../components/CartMap";
+import CartSummary from "../components/CartSummary";
+import OthersMap from "../components/OthersMap";
+import { fetchBurgers, fetchOthers } from "../services/firebaseService";
 
 export default function Menu(){
 
@@ -11,7 +14,6 @@ export default function Menu(){
     const [others, setOthers] = useState([]);
     const { cart, addToCart, clearCart } = useContext(CartContext);
     const [showCartModal, setShowCartModal] = useState(false);
-
 
 function removeNClose() {
     clearCart();
@@ -22,37 +24,22 @@ function removeNClose() {
 
   // Fetch burger data
   useEffect(() => {
-    async function fetchBurgers() {
-      const querySnapshot = await getDocs(collection(db, "burgers"));
-      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setBurgers(data);
-      console.log(data);
-    }
-    async function fetchOthers(){
-        const querySnapshot = await getDocs(collection(db, "others"))
-        const data = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-        setOthers(data)
-    }
+  async function getData() {
+    const burgers = await fetchBurgers();
+    const others = await fetchOthers();
 
-    fetchBurgers();
-    fetchOthers()
+    setBurgers(burgers);
+    setOthers(others);
+  }
+
+  getData();
   }, [cart]);
 
     return (
         <div className="main">
-            <h2 className="subHead">Apps & Starters</h2>
-         <div className="foodDiv">
-        {others.map((other) => (
-          <div key={other.id} className="itemDiv">
-            <img className='foodPic' src={other.url} alt={`food-${other.id}`} />
-            <h3>{other.name}</h3>
-            <p>{other.description}</p>
-            <p className="price">Price: {other.price}</p>
-            <button onClick={() => addToCart(other)}>Add to Cart</button>
-          </div>
-        ))}
-      </div>
-      <h2 className="subHead">Burgers</h2>
+        <h2 className="subHead">Apps & Starters</h2>
+        <OthersMap others={others} addToCart={addToCart} />
+        <h2 className="subHead">Burgers</h2>
         <BurgMap burgers={burgers} addToCart={addToCart} />
       {/* Sticky Cart Banner */}
       {cart.length > 0 && (
@@ -68,12 +55,9 @@ function removeNClose() {
           <div className="cart-modal-content">
             <button className="close-btn" onClick={() => setShowCartModal(false)}>X</button>
             <h3>Your Cart</h3>
-            <CartMap cart={cart} />
             <br />
-            <hr />
             <div className="modalBottom">
-                <p>Total: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</p>
-                <button onClick={removeNClose}>Clear Cart</button>
+              <CartSummary cart={cart} onClear={removeNClose} />
             </div>
           </div>
         </div>

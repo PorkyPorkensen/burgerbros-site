@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import CartMap from "../components/CartMap";
+import CartSummary from "../components/CartSummary";
 
 export default function PlaceOrder(){
     const { cart, addToCart, clearCart } = useContext(CartContext);
@@ -9,13 +10,19 @@ export default function PlaceOrder(){
     console.log(cart)
     return (
         <>
-        <h2 className="header">Place an Order</h2>
         <div className="orderHero">
 
-        <CartMap cart={cart} />
-        {cart.length > 0 ? <div className="totalNButtons"><h2>Total: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</h2>
-            <button onClick={clearCart}>Clear Cart</button>
-            <button>Proceed to Payment</button></div> : <div><p>Whoops! It appears your cart is empty..</p></div>}
+        {cart.length > 0 ? (
+        <CartSummary
+            cart={cart}
+            onClear={clearCart}
+            onProceed={() => {
+            console.log('Hello there curious individual!')
+            }}
+        />
+        ) : (
+        <p>Whoops! It appears your cart is empty..</p>
+        )}
         </div>
         <h2 className="header">Contact Us</h2>
         <div className="orderHero contact">

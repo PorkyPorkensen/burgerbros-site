@@ -4,7 +4,9 @@ import heroImg from '../images/mainHero.jpg';
 import { collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
 import BurgMap from "../components/BurgMap";
-import CartMap from "../components/CartMap";
+import CartSummary from "../components/CartSummary";
+import HeroSection from "../components/HeroSection";
+import { fetchBurgers } from "../services/firebaseService";
 
 export default function Home() {
   // -------------------
@@ -21,14 +23,16 @@ function removeNClose() {
 
   // Fetch burger data
   useEffect(() => {
-    async function fetchBurgers() {
-      const querySnapshot = await getDocs(collection(db, "burgers"));
-      const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setBurgers(data);
-      console.log(data);
+  async function getBurgerData() {
+    try {
+      const burgers = await fetchBurgers();
+      setBurgers(burgers);
+    } catch (error) {
+      console.error("Error fetching burgers:", error);
     }
+  }
 
-    fetchBurgers();
+  getBurgerData();
   }, [cart]);
 
   // -------------------
@@ -37,18 +41,12 @@ function removeNClose() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="hero">
-        <h2>Our Mission</h2>
-        <p>
-          At Burger Bros, our mission is to serve up unforgettable burgers
+      <HeroSection title='Our Mission'
+        description='At Burger Bros, our mission is to serve up unforgettable burgers
           and classic comfort foods made with love, fresh ingredients, and a commitment
           to community. As a proud family-owned business, we bring people together around
-          the table with hearty meals, friendly faces, and flavors that feel like home.
-        </p>
-        <div className="imgDiv">
-          <img src={heroImg} />
-        </div>
-      </div>
+          the table with hearty meals, friendly faces, and flavors that feel like home.'
+          image={heroImg} />
 
       {/* Burger List */}
       <h2 className="subHead">Burger Bros Specialties</h2>
@@ -67,11 +65,9 @@ function removeNClose() {
           <div className="cart-modal-content">
             <button className="close-btn" onClick={() => setShowCartModal(false)}>X</button>
             <h3>Your Cart</h3>
-            <CartMap cart={cart} />
-            <hr />
+            <br />
             <div className="modalBottom">
-                <p>Total: ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</p>
-                <button onClick={removeNClose}>Clear Cart</button>
+                <CartSummary cart={cart} onClear={removeNClose} />
             </div>
           </div>
         </div>

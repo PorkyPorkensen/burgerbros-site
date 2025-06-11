@@ -113,7 +113,22 @@ input[type="time"] {
   margin: 0 auto;
   text-align: center;
 }
+.clear-btn,
+.proceed-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
+.clear-btn {
+  background-color: #f1a0a0;
+}
+
+.proceed-btn {
+  background-color: #27ae60;
+  color: white;
+}
 .totalNButtons {
   width: 90%;
   margin: 0 auto;
@@ -289,6 +304,14 @@ input[type="time"] {
 .sm {
   font-size: 0.3em;
 }
+
+.cart-summary {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background: #f9f9f9;
+}
+
 
 .itemDiv {
   background: var(--card);

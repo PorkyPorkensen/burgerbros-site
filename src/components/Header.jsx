@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <div className="headDiv">
-      <h1 className="header">Burger Bros<i class="fa-solid fa-trademark sm"></i> <i class="fa-solid fa-burger"></i></h1>
+      <h1 className="header">Burger Bros<i className="fa-solid fa-trademark sm"></i> <i className="fa-solid fa-burger"></i></h1>
       <div className="linkDiv">
         <Link to="/">Home</Link> |{" "}
         <Link to="/Menu">Menu</Link> |{" "}

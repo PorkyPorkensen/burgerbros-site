@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com'
+import HeroSection from '../components/HeroSection';
 
 export default function Catering(){
 
@@ -37,16 +38,10 @@ export default function Catering(){
     return (
         <>
       {/* Hero Section */}
-      <div className="hero">
-        <h2>Catering</h2>
-        <div className="imgDiv">
-          <img src={"https://images.unsplash.com/photo-1623475173140-ad2f0369ca92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTk1MDJ8MHwxfHNlYXJjaHwzfHxjYXRlcmluZ3xlbnwwfDB8fHwxNzQ5MDU0NTY4fDA&ixlib=rb-4.1.0&q=80&w=1080"} />
-        </div>
-        <p className='cateringDesc'>
-         Planning a special event? Let Burger Bros bring the flavor! From backyard parties to weddings and corporate events, we offer customizable catering options that satisfy every crowd. Freshly made, crowd-pleasing favorites — delivered hot and hassle-free.
-        </p>
+      <HeroSection title='Catering'
+        description='Planning a special event? Let Burger Bros bring the flavor! From backyard parties to weddings and corporate events, we offer customizable catering options that satisfy every crowd. Freshly made, crowd-pleasing favorites — delivered hot and hassle-free.'
+        image="https://images.unsplash.com/photo-1623475173140-ad2f0369ca92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NTk1MDJ8MHwxfHNlYXJjaHwzfHxjYXRlcmluZ3xlbnwwfDB8fHwxNzQ5MDU0NTY4fDA&ixlib=rb-4.1.0&q=80&w=1080" />
         <br />
-      </div>
       <div className='quoteDiv'>
         <form onSubmit={handleSubmit} className="quote-form">
       <h3>Request a Catering Quote</h3>
