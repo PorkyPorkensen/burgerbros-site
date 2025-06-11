@@ -3,11 +3,13 @@ import { CartContext } from "../context/CartContext";
 import heroImg from '../images/mainHero.jpg';
 import { collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
-import BurgMap from "../components/BurgMap";
-import CartSummary from "../components/CartSummary";
-import HeroSection from "../components/HeroSection";
 import { fetchBurgers } from "../services/firebaseService";
-
+import {
+  BurgMap,
+  CartSummary,
+  HeroSection,
+  CartModal
+} from "../components";
 export default function Home() {
   // -------------------
   // State
@@ -61,16 +63,9 @@ function removeNClose() {
 
       {/* Cart Modal */}
       {showCartModal && (
-        <div className="cart-modal">
-          <div className="cart-modal-content">
-            <button className="close-btn" onClick={() => setShowCartModal(false)}>X</button>
-            <h3>Your Cart</h3>
-            <br />
-            <div className="modalBottom">
-                <CartSummary cart={cart} onClear={removeNClose} />
-            </div>
-          </div>
-        </div>
+        <CartModal title="Your Cart" onClose={() => setShowCartModal(false)}>
+          <CartSummary cart={cart} onClear={removeNClose} />
+        </CartModal>
       )}
     </div>
   );
